@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+#main {
+    display: flex;
+    width: 1450px;
+    height: 800px;
+}
+
+#navigation {
+    height: 100%;
+    width: 180px;
+    background-color: rgb(221, 221, 221);
+}
+
+.user {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding: 16px 0px;
+    text-align: center;  
+}
+
+.nav {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding: 16px 0px;
+    text-align: center;   
+}
+
+.header {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding: 16px 0px;
+    text-align: center;   
+}
+
+.nav:hover {
+    color: white;
+    background-color: blue;
+    user-select: none;
+    cursor: pointer;
+}
+
+.section {
+    display: none;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.options {
+    padding: 20px 0px;
+}
+
+.options > button {
+    padding: 8px 20px;
+    margin-right: 20px;
+}
+
+.options > button:hover {
+    cursor: pointer;
+}
+
+table, th, td, tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.th-0 {
+    padding: 10px;
+    text-align: center;
+}
+
+.th-0 > input:hover {
+    cursor: pointer;
+}
+
+.th-1 {
+    padding: 10px;
+    width: 150px;
+}
+
+.th-2 {
+    padding: 10px;
+    width: 150px;
+}
+
+.th-3 {
+    padding: 10px;
+    width: 300px;
+}
+
+.th-4 {
+    padding: 10px;
+    width: 150px;
+}
+
+.th-5 {
+    padding: 10px;
+    width: 150px;
+}
+
+.th-6 {
+    padding: 10px;
+    width: 150px;
+}
+
+.th-1 > input, .th-2 > input, .th-3 > input,
+.th-4 > input, .th-5 > input, .th-6 > input {
+    border: none;
+    width: 100%;
+}
