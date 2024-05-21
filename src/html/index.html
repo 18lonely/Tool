@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page</title>
   <link rel="stylesheet" href="../css/style.css">
+  <script type="module" src="../js/event.js"></script>
 </head>
 <body>
   <div id="main">
@@ -16,13 +17,13 @@
         MENU
       </div>
       <div class="nav nav-1">
-        Account
+        Tài khoản
       </div>
       <div class="nav nav-2">
-        Filter Groups
+        Tìm kiếm nhóm
       </div>
       <div class="nav nav-3">
-        Auto Post Group
+        Tự động đăng
       </div>
     </div>
     <div id="account-screen" class="section">
@@ -31,7 +32,7 @@
         <button class="button-delete">Delete</button>
         <button class="button-save">Save</button>
       </div>
-      <table>
+      <table class="table-accounts">
         <tr>
           <th class="th-0">CHECK</th>
           <th class="th-1">ID</th>
@@ -41,31 +42,58 @@
           <th class="th-5">EMAIL</th>
           <th class="th-6">PASSWORD</th>
         </tr>
-
-        <tr>
-          <td class="th-0">
-            <input type="checkbox" name="" id="1">
-          </td>
-          <td class="th-1">
-            <input type="text">
-          </td>
-          <td class="th-2">
-            <input type="text">
-          </td>
-          <td class="th-3">
-            <input type="text">
-          </td>
-          <td class="th-4">
-            <input type="text">
-          </td>
-          <td class="th-5">
-            <input type="text">
-          </td>
-          <td class="th-6">
-            <input type="text">
-          </td>
-        </tr>
+        
       </table>
+    </div>
+    <div id="filter-group-screen">
+      <div class="left">
+        <div class="input-keyword">
+          <input type="text" name="keword" placeholder="Keyword">
+          <button class="button-run">Tìm kiếm</button>
+        </div>
+        <div class="input-sl">
+          <span>Số lượng:</span> <input value="30" class="quantity" type="text">
+        </div>
+        <div class="choose-account">
+          <span>Chọn tài khoản:</span>
+          <select name="" class="options-account">
+          </select>
+        </div>
+      </div>
+      <div class="right">
+        <div class="title">
+          <h1>Group</h1>
+        </div>
+        <div class="container">
+          
+        </div>
+      </div>
+    </div>
+    <div id="auto-post-screen">
+      <div class="combo-content">
+        <h2>Nội dung</h2>
+
+        <textarea class="content"></textarea>
+        <div class="image">
+          <input type="file" multiple accept="image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv">
+        </div>
+      </div>
+
+      <div class="combo-choose">
+        <div class="combo-button">
+          <div class="choose-account">
+            <span>Chọn tài khoản:</span>
+            <select name="" class="options-account">
+            </select>
+          <button class="button-filter-your-group">Nhóm của bạn</button>
+          <button class="button-post">Đăng</button>
+          <span class="time">Khoảng thời gian: </span>
+          <input type="text" class="input-time" value="30-60">
+        </div>
+        <div class="list-group">
+        
+        </div>
+      </div>
     </div>
   </div>
 </body>

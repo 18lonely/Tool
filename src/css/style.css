@@ -6,6 +6,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+body {
+    overflow: hidden;
+}
+
 #main {
     display: flex;
     width: 1450px;
@@ -50,6 +54,7 @@
 }
 
 .section {
+    /* display: block; */
     display: none;
     padding-top: 20px;
     padding-left: 20px;
@@ -117,3 +122,166 @@ table, th, td, tr {
     border: none;
     width: 100%;
 }
+
+#filter-group-screen {
+    /* display: flex; */
+    display: none;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.input-sl {
+    padding: 10px 0px;
+    font-size: 18px;
+}
+
+.input-sl input {
+    border: none;
+    font-size: 18px;
+    width: 200px;
+}
+
+#filter-group-screen .left {
+    padding-right: 40px;
+}
+
+.left .input-keyword input {
+    font-size: 18px;
+    padding: 8px 10px;
+    margin-right: 20px;
+}
+
+.left .input-keyword button {
+    padding: 8px 18px;
+}
+
+.left .input-keyword button:hover {
+    cursor: pointer;
+}
+
+#filter-group-screen .right {
+    border-left: 1px solid black;
+    width: 700px;
+}
+
+.right .title {
+    text-align: center;
+}
+
+.right .container {
+    overflow-y: scroll;
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 30px;
+    height: 70%;
+    border: 1px solid black;
+}
+
+.right .container .gr {
+    margin-top: 5px;
+    display: flex;
+    width: 100%;
+    background-color: rgb(234, 234, 234);
+}
+
+.right .container .gr .left-gr {
+    padding: 5px
+}
+
+.right .container .gr .right-gr {
+    width: 600px;
+    padding: 5px
+}
+
+.right .container .gr .delete button {
+    width: 50px;
+    height: 100%;
+    color: red;
+    cursor: pointer;
+}
+
+#auto-post-screen {
+    /* display: flex; */
+    display: none;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+#auto-post-screen .combo-content {
+    width: 400px;
+}
+
+#auto-post-screen .combo-content h2 {
+    text-align: center;
+}
+
+#auto-post-screen .combo-content .content {
+    margin-top: 20px;
+    overflow-y: scroll;
+    border: 1px solid black;
+    width: 100%;
+    padding: 5px;
+    height: 300px;
+    resize: none;
+}
+
+#auto-post-screen .combo-content .image {
+
+}
+
+#auto-post-screen .combo-choose {
+    padding: 10px;
+    margin-left: 20px;
+    border-left: 1px solid black;
+}
+
+#auto-post-screen .list-group .gr .delete button {
+    width: 50px;
+    height: 100%;
+    color: red;
+    cursor: pointer;
+}
+
+#auto-post-screen .list-group .gr .r {
+    width: 600px;
+}
+
+#auto-post-screen .combo-button button {
+    padding: 8px 16px;
+    margin-right: 10px;
+}
+
+#auto-post-screen .combo-button button:hover {
+    cursor: pointer;
+}
+
+#auto-post-screen .combo-button input {
+    padding: 8px 16px;
+    border: none;
+    width: 100px;
+    font-size: 16px;
+}
+
+#auto-post-screen .list-group {
+    overflow-y: scroll;
+    width: 600px;
+    padding: 5px;
+    margin-top: 20px;
+    border: 1px solid black;
+    height: 500px;
+}
+
+#auto-post-screen .list-group .gr {
+    margin-top: 5px;
+    background-color: rgb(234, 234, 234);
+    padding: 5px;
+    display: flex;
+    width: 100%;
+}
+
+#auto-post-screen .list-group .gr img {
+    padding-right: 10px;
+}
+
+
+

@@ -1,3 +1,5 @@
+"use strict"
+
 const { Builder, Browser, By, Key, until } = require('selenium-webdriver')
 const chrome = require('selenium-webdriver/chrome')
 
@@ -6,13 +8,6 @@ const {JSDOM} = require('jsdom')
 const DOM = new JSDOM(`<!DOCTYPE html>`)
 const DOCUMENT = DOM.window.document
 
-/**
- * This method will filter properties of group
- * @param {Int} n Number of group
- * @param {*} keyword Search keyword
- * @param {*} driver Builder
- * @returns 
- */
 const filterGroups = async (n, keyword, driver) => {
     await driver.get("https://www.facebook.com/search/groups/?q=" + keyword.trim().replace(" ", "%20"))
 
@@ -25,7 +20,7 @@ const filterGroups = async (n, keyword, driver) => {
         count = listsTag.length
     }
 
-    let text = ""
+    let arr = []
 
     for(let tag of listsTag) {
         let newDiv = DOCUMENT.createElement('div')
@@ -38,16 +33,14 @@ const filterGroups = async (n, keyword, driver) => {
         let url = tagA[0].getAttribute('href')
         let urlImage = tagImage[0].getAttribute('xlink:href').replaceAll('amp;', "")
         
-        text += `${nameGroup}, ${url}, ${urlImage}\n`
+        arr.push([nameGroup, url, urlImage])
     }
+
+    await driver.quit()
     
-    return text
+    return arr
 }
 
-/**
- * This method return Builder with option full screen and disable nofitication
- * @returns Builder
- */
 const initBrowser = async () => {
     let options = new chrome.Options()
     options.addArguments("--disable-notifications")
@@ -60,12 +53,6 @@ const initBrowser = async () => {
     return driver
 }
 
-/**
- * This method auto login facebook with email and password
- * @param {Builder} driver 
- * @param {String} email Email, ID, Phonenumber,...
- * @param {String} password 
- */
 const loginFB = async (driver, email, password) => {
     await driver.get('https://fb.com')
 
@@ -84,13 +71,6 @@ const loginFB = async (driver, email, password) => {
     await driver.wait(until.elementsLocated(By.id("has-finished-comet-page")), 10000)
 }
 
-/**
- * 
- * @param {String} keyword 
- * @param {Int} n Number of group
- * @param {String} email Email, ID, Phonenumber,...
- * @param {String} password 
- */
 const findGroupByKyeword = async (keyword, n, email, password) => {
     let driver = await initBrowser()
 
@@ -100,7 +80,7 @@ const findGroupByKyeword = async (keyword, n, email, password) => {
 }
 
 const filterPropertiesYourGroup = async (groups) => {
-    let result = ''
+    let result = []
 
     for(let index in groups) {
         let newDiv = DOCUMENT.createElement('div')
@@ -112,13 +92,13 @@ const filterPropertiesYourGroup = async (groups) => {
 
         // console.log(tagA.getAttribute("href"), tagSvg.getAttribute("aria-label"), tagImage.getAttribute("xlink:href"))
 
-        result += `${tagA.getAttribute("href")}, ${tagSvg.getAttribute("aria-label")}, ${tagImage.getAttribute("xlink:href").replaceAll('amp;', '')}\n`
+        result.push([tagA.getAttribute("href"), tagSvg.getAttribute("aria-label"), tagImage.getAttribute("xlink:href").replaceAll('amp;', '')])
     }
 
     return result
 }
 
-const getYourGroup = async (email, password) => {
+const getYourGroups = async (email, password) => {
     let driver = await initBrowser()
 
     await loginFB(driver, email, password)
@@ -139,28 +119,59 @@ const getYourGroup = async (email, password) => {
         count = groups.length
     }
 
-    return await filterPropertiesYourGroup(groups)
+    let result = await filterPropertiesYourGroup(groups)
+    await driver.quit()
+    return result
 }
 
-const autoPostGroupFacebook = async (driver ,url, message) => {
+const autoPostGroupFacebook = async (driver ,url, content, files) => {
     await driver.get(url)
+    await driver.wait(until.elementsLocated(By.xpath('//div[@class="x1i10hfl xjbqb8w xjqpnuy xa49m3k xqeqjp1 x2hbi6w x13fuv20 xu3j5b3 x1q0q8m5 x26u7qi x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x87ps6o x1lku1pv x1a2a7pz x6s0dn4 x1lq5wgf xgqcy7u x30kzoy x9jhf4c x78zum5 x1r8uery x1iyjqo2 xs83m0k xl56j7k x1pshirs x1y1aw1k x1sxyh0 xwib8y2 xurb0ha"]')), 10000)
 
-    let inputPost = await driver.findElement(By.className("x1i10hfl x1ejq31n xd10rxx x1sy0etr x17r0tee x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x16tdsg8 x1hl2dhg xggy1nq x87ps6o x1lku1pv x1a2a7pz x6s0dn4 xmjcpbm x107yiy2 xv8uw2v x1tfwpuw x2g32xy x78zum5 x1q0g3np x1iyjqo2 x1nhvcw1 x1n2onr6 xt7dq6l x1ba4aug x1y1aw1k xn6708d xwib8y2 x1ye3gou"))
+    let inputPost = await driver.findElement(By.xpath('//div[@class="x1i10hfl xjbqb8w xjqpnuy xa49m3k xqeqjp1 x2hbi6w x13fuv20 xu3j5b3 x1q0q8m5 x26u7qi x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x87ps6o x1lku1pv x1a2a7pz x6s0dn4 x1lq5wgf xgqcy7u x30kzoy x9jhf4c x78zum5 x1r8uery x1iyjqo2 xs83m0k xl56j7k x1pshirs x1y1aw1k x1sxyh0 xwib8y2 xurb0ha"]'))
     inputPost.click()
 
+    // _1mf _1mj
+    await driver.wait(until.elementsLocated(By.xpath('//div[@class="_1mf _1mj"]')), 10000)
+    let container = await driver.findElement(By.xpath('//div[@class="_1mf _1mj"]'))
+    
+    if(content.length != 0) {
+        await container.sendKeys(content)
+    }
+    
+    let inputFile = await driver.findElement(By.xpath('//input[@accept="image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv"]'))
+    if(files.length != 0) {
+        await inputFile.sendKeys(files.join(" \n "))
+    }
+
+    await driver.sleep(1000)
+
+    await driver.executeScript(`
+        let post = document.getElementsByClassName("x78zum5 xdt5ytf x1pl0jk3 x1n2onr6 x8n7wzh x11pth41 xvue9z")[0].getElementsByClassName("x1n2onr6 x1ja2u2z x78zum5 x2lah0s xl56j7k x6s0dn4 xozqiw3 x1q0g3np xi112ho x17zwfj4 x585lrc x1403ito x972fbf xcfux6l x1qhh985 xm0m39n x9f619 xn6708d x1ye3gou xtvsq51 x1r1pt67")[0]
+        console.log(post)
+        post.click()
+    `)
 }
 
-const test = async () => {
-    let email = '100079943206635'
-    let password = 'rJNWEqpWUI'
-    let url = 'https://www.facebook.com/groups/3065537343716084'
-    let message = "Test"
+const autoPostGroupsFacebook = async (email, password, groups, content, files, delay) => {
     let driver = await initBrowser()
+
     await loginFB(driver, email, password)
 
-    await autoPostGroupFacebook(driver, url, message)
-
+    for(let gr of groups) {
+        if(gr.length == 0) {
+            continue
+        }
+        try {
+            await autoPostGroupFacebook(driver, gr[0], content, files)
+            await driver.sleep((Math.random() * Number(delay[1])) + Number(delay[0]))
+        } catch (err) {
+            console.log(err)
+        }
+    }
 }
 
-test()
-
+export default {autoPostGroupsFacebook, filterGroups, initBrowser,
+    loginFB, findGroupByKyeword, filterPropertiesYourGroup,
+    getYourGroups, autoPostGroupFacebook
+}
